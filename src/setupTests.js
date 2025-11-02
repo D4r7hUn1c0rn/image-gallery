@@ -3,3 +3,16 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
+
+// Suppress ReactDOMTestUtils.act deprecation warning
+// This is a known issue with @testing-library/react v13.x
+const originalError = console.error;
+jest.spyOn(console, 'error').mockImplementation((...args) => {
+  if (
+    typeof args[0] === 'string' &&
+    args[0].includes('ReactDOMTestUtils.act is deprecated')
+  ) {
+    return;
+  }
+  originalError.call(console, ...args);
+});

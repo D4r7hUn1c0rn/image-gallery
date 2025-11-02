@@ -10,7 +10,7 @@ export default function Album() {
     <>
       <h1>{id}</h1>
       {image ? (
-        <div onClick={() => setImage(undefined)} style={{position: 'fixed', top: 0, bottom:0, right:0, left:0, textAlign: 'center', paddingTop: '50px', border: '1px solid black', backgroundColor: 'white'}}>
+        <div data-testid="image-modal" onClick={() => setImage(undefined)} style={{position: 'fixed', top: 0, bottom:0, right:0, left:0, textAlign: 'center', paddingTop: '50px', border: '1px solid black', backgroundColor: 'white'}}>
           <img src={image.url} alt={image.title} />
           <p>{image.title}</p>
         </div>
