@@ -1,29 +1,18 @@
+import axios from 'axios';
+
 export async function imageLoader ({params}) {
+    try {
+        const response = await axios.get('https://jsonplaceholder.typicode.com/albums');
 
-    const data = {
-        albums: [
-            {
-                id: 1,
-                title: 'Lorem ipsum'
-            },
-            {
-                id: 2,
-                title: 'Lorem ipsum'
-            },
-            {
-                id: 3,
-                title: 'Lorem ipsum'
-            },
-            {
-                id: 4,
-                title: 'Lorem ipsum'
-            },
-            {
-                id: 5,
-                title: 'Lorem ipsum'
-            }
-        ]
-    };
+        return {
+            albums: response.data
+        };
+    } catch (error) {
+        console.error('Error fetching albums:', error);
 
-    return data;
+        // Return fallback data in case of error
+        return {
+            albums: []
+        };
+    }
 };

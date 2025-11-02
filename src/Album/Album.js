@@ -11,8 +11,9 @@ export default function Album() {
     <>
       <h1><a href="/" aria-label="back to albums">&lt;</a> Album {id}</h1>
       {image ? (
-        <div className="image-modal" data-testid="image-modal" onClick={() => setImage(undefined)} style={{position: 'fixed', top: 0, bottom:0, right:0, left:0, textAlign: 'center', paddingTop: '10%', backgroundColor: 'white', opacity: 0.9}}>
-          <img style={{ minHeight: "60%", maxHeight: "80%", width: "auto" }} src={image.url} alt={image.title} />
+        <div className="image-modal" data-testid="image-modal" onClick={() => setImage(undefined)} style={{position: 'fixed', top: 0, bottom:0, right:0, left:0, textAlign: 'center', paddingTop: '10%', backgroundColor: 'white', opacity: 0.95}}>
+          {/* <img style={{ minHeight: "60%", maxHeight: "80%", width: "auto" }} src={image.url} alt={image.title} /> */}
+          <img style={{ minHeight: "60%", maxHeight: "80%", width: "auto" }} src="/cow.jpeg" alt={image.title} />
           <p style={{ minHeight: "100px", padding: "10px", maxWidth: "50%", margin: "10px auto" }}>{image.title}</p>
         </div>
       ) : (
@@ -24,7 +25,7 @@ export default function Album() {
             return (
               <li key={i} onClick={() => setImage(image)} style={{width: '180px', margin: '10px', cursor: 'pointer', border: '1px solid #e3e3e3', borderRadius: '4px'}}>
                 <img
-                  style={{ maxWidth: "180px", minHeight: "180px", borderTopLeftRadius: '4px', borderTopRightRadius: '4px', backgroundColor: '#777', color: '#fff' }}
+                  style={{ minWidth: "180px", maxWidth: "180px", minHeight: "180px", maxHeight: "180px", borderTopLeftRadius: '4px', borderTopRightRadius: '4px', backgroundColor: '#777', color: '#fff' }}
                   src={image.thumbnailUrl}
                   alt={image.title}
                 />
