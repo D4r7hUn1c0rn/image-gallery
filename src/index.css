@@ -11,3 +11,57 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+button {
+  background-color: #00a7e1;
+  color: #fff;
+  border-radius: 4px;
+  border: 1px solid #00a7e1;
+  padding: 4px;
+  margin-left: 20px;
+}
+
+ul {
+  list-style: none;
+  border: 1px solid #e3e3e3;
+  width: 300px;
+  border-radius: 4px;
+}
+
+ul li {
+  margin-left: 0;
+  border-bottom: 1px solid #e3e3e3;
+  border-collapse: collapse;
+}
+
+ul li:last-child {
+  border-bottom: none;
+}
+
+ul li:hover, ul li:focus, ul li:active {
+  background-color: #00a7e1;
+}
+
+ul li:hover a, ul li:focus a, ul li:active a {
+  color: #fff;
+}
+
+ul li a {
+  text-decoration: none;
+  color: #767676;
+  display: block;
+  padding: 8px;
+}
+
+ul li:last-child input {
+  margin-bottom: 0;
+  border: 1px solid black;
+  border-radius: 4px;
+  font-weight: bold;;
+  width: 100%;
+}
+
+ul.album-images li:hover, ul.album-images li:focus, ul.album-images li:active {
+  opacity: .6;
+  background: none;
+}

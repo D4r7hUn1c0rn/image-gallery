@@ -8,9 +8,10 @@ export async function albumLoader ({params, request}) {
     const url = new URL(request.url);
     const create = url.searchParams.get('create');
 
+    // probably should pass the album name, or have it in the payload
     const data = {
         id: params.id,
-        newAlbum: create === 'true',
+        newAlbum: create === 'true', // this stuff is probably me overengineering a bit
         images: create ? [] : [
             {
                 albumId: 1,

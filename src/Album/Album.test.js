@@ -8,6 +8,13 @@ jest.mock('react-router-dom', () => ({
   useLoaderData: jest.fn(),
 }));
 
+// Mock AddImage component
+jest.mock('./AddImage', () => {
+  return function MockAddImage() {
+    return <button>Add Image</button>;
+  };
+});
+
 const mockPhotos = [
   {
     albumId: 1,
@@ -69,8 +76,8 @@ test('renders Album component without crashing', () => {
 test('displays all photos from the hardcoded data', () => {
   render(<Album />);
   const images = screen.getAllByRole('img');
-  // Should have 6 thumbnails (modal image not rendered initially)
-  expect(images).toHaveLength(mockPhotos.length);
+  // Should have 6 thumbnails (modal image not rendered initially, AddImage button doesn't affect image count)
+  expect(images).toHaveLength(6);
 });
 
 test('displays photo titles', () => {
@@ -98,11 +105,15 @@ test('opens modal with full-size image when thumbnail is clicked', () => {
   // Modal should now be visible with the full-size image
   const modalImages = screen.getAllByRole('img');
   // Should now have 7 images: 6 thumbnails + 1 in modal
-  expect(modalImages).toHaveLength(mockPhotos.length + 1);
+  expect(modalImages).toHaveLength(7);
 
-  // Check that the modal image has the correct src
-  const modalImage = modalImages.find(img => img.src === mockPhotos[0].url);
-  expect(modalImage).toBeInTheDocument();
+  // Verify modal is open
+  expect(screen.getByTestId('image-modal')).toBeInTheDocument();
+
+  // Check that the modal displays the correct image
+  const modalDiv = screen.getByTestId('image-modal');
+  const modalImage = modalDiv.querySelector('img');
+  expect(modalImage.src).toBe(mockPhotos[0].url);
 });
 
 test('closes modal when clicked', () => {
@@ -159,7 +170,7 @@ test('uses album id from loader data', () => {
 
   // Component should render successfully with the provided id
   expect(screen.getByRole('list')).toBeInTheDocument();
-  expect(screen.getByText(testId)).toBeInTheDocument();
+  expect(screen.getByText(`Album ${testId}`)).toBeInTheDocument();
 });
 
 test('shows empty state when album has no images', () => {
@@ -175,7 +186,7 @@ test('shows empty state when album has no images', () => {
   expect(screen.queryByRole('list')).not.toBeInTheDocument();
 });
 
-test('shows "Create Album" button for new albums', () => {
+test('shows "Add Image" button for new albums', () => {
   useLoaderData.mockReturnValue({
     id: '1',
     images: [],
@@ -184,12 +195,11 @@ test('shows "Create Album" button for new albums', () => {
 
   render(<Album />);
 
-  const createButton = screen.getByRole('button', { name: /Create Album/i });
-  expect(createButton).toBeInTheDocument();
-  expect(screen.queryByRole('button', { name: /Update Album/i })).not.toBeInTheDocument();
+  const addImageButton = screen.getByRole('button', { name: /Add Image/i });
+  expect(addImageButton).toBeInTheDocument();
 });
 
-test('shows "Update Album" button for existing albums with no images', () => {
+test('shows "Add Image" button for existing albums', () => {
   useLoaderData.mockReturnValue({
     id: '1',
     images: [],
@@ -198,41 +208,13 @@ test('shows "Update Album" button for existing albums with no images', () => {
 
   render(<Album />);
 
-  const updateButton = screen.getByRole('button', { name: /Update Album/i });
-  expect(updateButton).toBeInTheDocument();
-  expect(screen.queryByRole('button', { name: /Create Album/i })).not.toBeInTheDocument();
+  const addImageButton = screen.getByRole('button', { name: /Add Image/i });
+  expect(addImageButton).toBeInTheDocument();
 });
 
-test('shows alert when Create Album button is clicked', () => {
-  useLoaderData.mockReturnValue({
-    id: '1',
-    images: [],
-    newAlbum: true,
-  });
-
-  window.alert = jest.fn();
-
+test('shows "Add Image" button even when images exist', () => {
   render(<Album />);
 
-  const createButton = screen.getByRole('button', { name: /Create Album/i });
-  fireEvent.click(createButton);
-
-  expect(window.alert).toHaveBeenCalledWith('Album created!');
-});
-
-test('shows alert when Update Album button is clicked', () => {
-  useLoaderData.mockReturnValue({
-    id: '1',
-    images: [],
-    newAlbum: false,
-  });
-
-  window.alert = jest.fn();
-
-  render(<Album />);
-
-  const updateButton = screen.getByRole('button', { name: /Update Album/i });
-  fireEvent.click(updateButton);
-
-  expect(window.alert).toHaveBeenCalledWith('Album saved!');
+  const addImageButton = screen.getByRole('button', { name: /Add Image/i });
+  expect(addImageButton).toBeInTheDocument();
 });

@@ -27,7 +27,7 @@ export default function ImageGallery () {
 
   return (
     <>
-      <h1>Image Albums</h1>
+      <h1 class="page-title">Image Albums</h1>
       <ul>
         {albumList.map((album, i) => {
           return (
@@ -38,16 +38,17 @@ export default function ImageGallery () {
         })}
         {addNew ? (
           <li>
-            <input type="text" onKeyUp={keyUpHandler} />
-            <button onClick={() => saveToList(newAlbumName)}>Save album</button>
+            <input type="text" onKeyUp={keyUpHandler} placeholder="New album name...." /> 
           </li>
         ) : (
           <></>
         )}
       </ul>
-
-      <br />
-      <button style={{marginLeft: '20px'}} onClick={() => setAddNew(true)}>Add new</button>
+      {addNew ? (
+        <button onClick={() => saveToList(newAlbumName)}>Save album</button>
+      ) : (
+        <button onClick={() => setAddNew(true)}>Add new</button>
+      )}
     </>
   );
 };

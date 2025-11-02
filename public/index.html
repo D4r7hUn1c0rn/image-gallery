@@ -2,14 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="icon" href="https://cabinetsbycomputer.com.au/wp-content/uploads/2015/04/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta
       name="description"
       content="Web site created using create-react-app"
     />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="apple-touch-icon" href="https://cabinetsbycomputer.com.au/wp-content/uploads/2022/01/cropped-cbc-favicon-180x180.jpg" />
+    <link rel="stylesheet" href="https://cabinetsbycomputer.com.au/wp-content/themes/jupiter/assets/stylesheet/min/full-styles.6.1.6.css?ver=1541856781" />
+    <link rel="stylesheet" href="https://cabinetsbycomputer.com.au/wp-content/uploads/mk_assets/theme-options-production-1761004428.css?ver=1761004420" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -24,11 +26,32 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>Album Image Gallery test - Matt Robinson</title>
+    <style>
+      .fake-header {
+        width: 100%;
+        height: 90px;
+        line-height: 90px;
+        background-color: #f5f5f5;
+        border-top: 25px solid #0b85c8;
+        border-bottom: 1px solid #ddd;
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+      }
+      .fake-header .mk-desktop-logo {
+        height: 40px;
+      }
+    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <header class="fake-header">
+      <img title="Software solutions for the cabinetry industry" alt="Software solutions for the cabinetry industry" class="mk-desktop-logo dark-logo" src="https://cabinetsbycomputer.com.au/wp-content/uploads/2021/04/cbc-logo.png">
+    </header>
+    <div id="root" class="theme-page-wrapper mk-main-wrapper mk-grid full-layout no-padding"></div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
