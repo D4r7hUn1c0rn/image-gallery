@@ -1,51 +1,45 @@
 import React, { useState } from 'react';
+import { useLoaderData } from "react-router-dom";
 
 export default function ImageGallery () {
+  const { albums } = useLoaderData();
+
   const [addNew, setAddNew] = useState(false);
-  const [albums, setAlbums] = useState([
-    {
-      id: 1,
-      title: 'Lorem ipsum'
-    },
-    {
-      id: 2,
-      title: 'Lorem ipsum'
-    },
-    {
-      id: 3,
-      title: 'Lorem ipsum'
-    },
-    {
-      id: 4,
-      title: 'Lorem ipsum'
-    },
-    {
-      id: 5,
-      title: 'Lorem ipsum'
-    }
-  ]);
+  const [albumList, setAlbumList] = useState(albums);
+  const [newAlbumName, setNewAlbumName] = useState('');
 
   const keyUpHandler = (e) => {
     if (e.key === 'Enter') {
-      setAlbums((albums) => albums);
-      setAddNew(false);
+      saveToList(e.target.value);
+    }else{
+      setNewAlbumName(e.target.value);
     }
+  };
+
+  const saveToList = (albumName) => {
+    // save people from themselves
+    if(albumName.trim() === '') return;
+    // would probably patch the album list to a backend here, but going with letting the image loader decide
+    setAlbumList([...albumList, {id: albumList.length + 1, title: albumName, new: true}]);
+    setAddNew(false);
+    setNewAlbumName('');
   };
 
   return (
     <>
       <h1>Image Albums</h1>
       <ul>
-        {albums.map((album) => {
+        {albumList.map((album, i) => {
           return (
-            <li>
-              <a href={`album/${album.title}`}>{album.title}</a>
+            <li key={i}>
+              <a href={`album/${album.id}${album.new ? '?create=true' : ''}`}>{album.title}</a>
             </li>
           );
         })}
         {addNew ? (
           <li>
             <input type="text" onKeyUp={keyUpHandler} />
+            <button onClick={() => saveToList(newAlbumName)}>Save album</button>
           </li>
         ) : (
           <></>

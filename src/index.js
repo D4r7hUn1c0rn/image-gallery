@@ -7,11 +7,13 @@ import ErrorPage from './error-page';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Album from './Album/Album';
 import { albumLoader } from './Album/albumLoader';
+import { imageLoader } from './ImageGallery/imageLoader';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <ImageGallery />,
+    loader: imageLoader,
     errorElement: <ErrorPage />,
   },
   {
